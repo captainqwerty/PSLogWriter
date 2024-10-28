@@ -39,7 +39,7 @@ This project was to just offer people a easy way to quickly add the ability to o
 
 ### Installation
 
-## Option A: User-Specific Installation
+## Manual Installation
 1. Download the `Source.zip` from the <a href="https://github.com/captainqwerty/PSLogWriter/releases">latest release</a>
 2. Extract the zipped folder
 3. Locate your user module path:
@@ -48,7 +48,7 @@ This project was to just offer people a easy way to quickly add the ability to o
 # This command will list the usable folders
 $env:PSModulePath -split ';'
 ```
-4. Copy the `PSLogWriter` folder to your preferred module folder
+4. Copy the `PSLogWriter` folder from within the extracted folder, to your preferred module folder
 5. Verify the installation
 
 ## Verification
@@ -68,14 +68,21 @@ Get-Command -Module PSLogWriter
 <!-- USAGE EXAMPLES -->
 ## Usage
 ```PowerShell
+# Importing the module
 Import-Module PSLogWriter
 
+# Creating a log object, you could delcare several different variable
+# names to have multiple logs running for different information
 $Log = New-Log -LogLocation "$PSScriptLog\Log.log"
 
-$Log.AddInfo("This message is informational")
-$Log.AddError("Oh no. Something went wrong!")
-$Log.AddWarning("Calm yourself, this is a warning")
+# Examples of adding log entries
+$Log.AddInfo("This message is informational") # Info entry
+$Log.AddError("Oh no. Something went wrong!") # Error entry
+$Log.AddWarning("Calm yourself, this is a warning") # Warning entry
+$Log.AddCustomEntry("BACON","This is a bacon alert!") # Custom entry
+$Log.AddCustomEntry("Bacon","Green","This is a bacon alert!") # Custom entry with custom colour
 
+# Removing the module
 Remove-Module PSLogWriter
 ```
 <p align="right">(<a href="#top">Back to top</a>)</p>

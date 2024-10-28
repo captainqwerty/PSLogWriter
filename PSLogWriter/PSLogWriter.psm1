@@ -8,12 +8,21 @@
 .NOTES
     Name: PSLogWriter
     Author: Antony Bragg
-    Version: 1.0.0
+    Version: 1.1.0
     LastUpdated: 2024-10-27
     Requirements: PowerShell 5.0+
 
 .LINK
     Project Repository: https://github.com/captainqwerty/PSLogWriter
+
+.EXAMPLE
+    Import-Module PSLogWriter
+    $Log = New-Log
+    $Log.AddInfo("This is info!")
+    $Log.AddError("This is an error!")
+    $Log.AddWarning("This is a warning!")
+    $Log.AddCustomEntry("Bacon","This is a bacon alert!")
+    $Log.AddCustomEntry("Bacon","Green","This is a bacon alert!")
 
 .EXAMPLE
     Import-Module PSLogWriter
@@ -38,15 +47,23 @@ class Log {
     [string]$DateFormat
 
     AddError([string]$Message) {
-        $this.AddEntry($message,"Error")
+        $this.AddEntry($message,"Error","Red")
     }
 
     AddWarning([string]$Message) {
-        $this.AddEntry($message,"Warning")
+        $this.AddEntry($message,"Warning","Yellow")
     }
 
     AddInfo([string]$Message) {
-        $this.AddEntry($message,"Info")
+        $this.AddEntry($message,"Info","White")
+    }
+
+    AddCustomEntry([string]$type,[string]$Message) {
+        $this.AddEntry($message,$type,"White")
+    }
+
+    AddCustomEntry([string]$type,[string]$Colour,[string]$Message) {
+        $this.AddEntry($message,$type,$colour)
     }
 
     CreateLog([string]$LogLocation) {
@@ -63,7 +80,7 @@ class Log {
         }
     }
 
-    hidden AddEntry([string]$Message,[string]$severity) {
+    hidden AddEntry([string]$Message,[string]$severity,[string]$colour = "White") {
         if(!(test-path $this.LogLocation)) {
             new-item $this.LogLocation -Force
         }
@@ -77,7 +94,8 @@ class Log {
         
         $Output = "$timeStamp - [$($severity)] $($Message)"
         Add-Content $this.logLocation -value $Output
-        Write-Host "$Output"
+
+        Write-Host "$Output" -ForegroundColor $Colour
     }
 }
 
@@ -91,13 +109,21 @@ Function New-Log {
 
 .PARAMETER LogLocation
     The location of the log file to create or append to. This should be a .log or .txt file.
+    If no log location is specified the location of the script being executed will be used.
 
 .EXAMPLE
-    $Log = New-Log -LogLocation "$PSScriptRoot\Log\Log.txt"
-    $Log.AddInfo("Script started!")
+    $Log = New-Log
+    $Log.AddInfo("This is info!")
+    $Log.AddError("This is an error!")
+    $Log.AddWarning("This is a warning!")
+    $Log.AddCustomEntry("Bacon","This is a bacon alert!")
+    $Log.AddCustomEntry("Bacon","Green","This is a bacon alert!")
 
 .EXAMPLE
-    Import-Module PSLogWriter
+    $Log = New-Log -LogLocation "$PSScriptRoot\Logs\Log.txt"
+    $Log.AddInfo("This is info!")
+
+.EXAMPLE
     $Log = New-Log -LogLocation "$PSScriptRoot\Logs\Log.txt"
     
     try {
@@ -122,7 +148,7 @@ Function New-Log {
     param (
         [Parameter()]
         [String]
-        $LogLocation
+        $LogLocation = ".\log.log"
     )
 
     $Log = [Log]::New()
