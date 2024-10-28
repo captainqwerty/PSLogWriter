@@ -9,7 +9,7 @@
     Name: PSLogWriter
     Author: Antony Bragg
     Version: 1.1.0
-    LastUpdated: 2024-10-27
+    LastUpdated: 2024-10-28
     Requirements: PowerShell 5.0+
 
 .LINK

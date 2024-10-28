@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project will attempt to adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.0] - 2024-10-27
+## [1.1.0] - 2024-10-28
 This release was used to add more functionality to the module as well as the missing PSD1 file.
 
 ### Added / Changed
@@ -15,7 +15,7 @@ This release was used to add more functionality to the module as well as the mis
  * Added `.AddCustomEntry($type,$message)` to add entries other than "Info","Error" or "Warning"
  * `.AddCustomEntry()` also supports a custom colour `.AddCustomEntry($type,$colour,$message)`
  * Added more examples to the `New-Log` function
- * Added default colour to Warning, Info and Error Write-Hosts
+ * Added default colours to Warning, Info and Error Write-Hosts
   
 ### Fixed
  * No New Fixes
