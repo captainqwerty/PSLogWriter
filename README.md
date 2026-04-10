@@ -22,12 +22,16 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project was to just offer people a easy way to quickly add the ability to output a nice, simple log within their own projects. The module can output a log file of a .txt or .log format and utilises three log entry types: Information, Warning and Error.
+PSLogWriter is a simple cross-platform log file module for PowerShell that provides an easy way to add logging capabilities to your scripts. The module supports writing to log files (.txt or .log), the Windows Event Log, and Linux syslog. It offers three standard log entry types (Information, Warning, and Error) plus custom entry types with optional color coding. Logging to console, system logs, and files can be toggled independently.
 
 ### Features
 
  * Information, warning and error logging
- * Customisable date format
+ * Custom log entry types with optional color coding
+ * Cross-platform support (Windows Event Log and Linux syslog)
+ * Console logging with color output
+ * Customizable date format
+ * Independent toggles for logging to file, system, and console
 
 <p align="right">(<a href="#top">Back to top</a>)</p>
 
@@ -71,16 +75,32 @@ Get-Command -Module PSLogWriter
 # Importing the module
 Import-Module PSLogWriter
 
-# Creating a log object, you could delcare several different variable
-# names to have multiple logs running for different information
-$Log = New-Log -LogLocation "$PSScriptLog\Log.log"
+# Creating a log object
+$Log = New-Log -LogLocation ".\Log.log"
 
-# Examples of adding log entries
+# Basic log entries
 $Log.AddInfo("This message is informational") # Info entry
 $Log.AddError("Oh no. Something went wrong!") # Error entry
 $Log.AddWarning("Calm yourself, this is a warning") # Warning entry
+
+# Custom entries
 $Log.AddCustomEntry("BACON","This is a bacon alert!") # Custom entry
-$Log.AddCustomEntry("Bacon","Green","This is a bacon alert!") # Custom entry with custom colour
+$Log.AddCustomEntry("BACON","This is a bacon alert!","Green") # Custom entry with custom color
+
+# Configuring logging options
+$Log.LogToSystem = $true  # Enable logging to system logs (Event Log on Windows, syslog on Linux)
+$Log.LogToConsole = $false # Disable console output
+$Log.DateFormat = "yyyy-MM-dd HH:mm:ss" # Custom date format
+
+# Example with system logging enabled
+$Log.AddInfo("This will log to file, system, and console (if enabled)")
+
+# Error handling example
+try {
+    Throw "An error occurred"
+} catch {
+    $Log.AddError($_)
+}
 
 # Removing the module
 Remove-Module PSLogWriter

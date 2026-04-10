@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project will attempt to adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2026-04-10
+The revamp!
+
+### Added / Changed
+ * **Added Cross-Platform System Logging**: New `[bool]$LogToSystem = $false` property enables writing to Windows Event Log (Windows) and Linux syslog (Linux) simultaneously with file logging
+ * Added `[bool]$LogToConsole = $true` which can be set to $false for a more silent operation
+ * Added ` | Out-Null` to the creation of the log file if it does not exist to make this less messy
+ * Added `-Encoding UTF8` to the `Add-Content` when writing to the log file
+ * Removed Parameter description from meta data as this was from the template and was blank
+ 
+  
+### Fixed
+ * [BREAKING CHANGE] `AddCustomEntry` property order changed for more clarity for the method with the colour overload
+ * Corrected $logFIle to $logFile in the ValidateLogFile method parameter
+
 ## [1.1.0] - 2024-10-28
 This release was used to add more functionality to the module as well as the missing PSD1 file.
 
