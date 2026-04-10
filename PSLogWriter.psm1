@@ -51,8 +51,6 @@
 
 #Requires -Version 5.0
 
-#Requires -Version 5.0
-
 class Log {
     hidden [string]$LogLocation
     [string]$DateFormat
