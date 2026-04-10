@@ -4,7 +4,7 @@
 RootModule = 'PSLogWriter.psm1'
 
 # Versioning
-ModuleVersion = '2.0.0'
+ModuleVersion = '2.0.1'
 GUID = 'fa7e4f23-5efb-424d-83cf-4025a2bc38e0'
 
 # Author / Org
@@ -49,7 +49,7 @@ PrivateData = @{
 
         LicenseUri   = 'https://github.com/captainqwerty/PSLogWriter/blob/main/LICENSE'
         ProjectUri   = 'https://github.com/captainqwerty/PSLogWriter'
-        ReleaseNotes = 'https://github.com/captainqwerty/PSLogWriter/blob/main/CHANGELOG.MD'
+        ReleaseNotes = 'https://github.com/captainqwerty/PSLogWriter/blob/main/CHANGELOG.md'
 
         # 👇 These matter if you ever publish to PSGallery
         RequireLicenseAcceptance = $false
@@ -58,5 +58,4 @@ PrivateData = @{
         IconUri = 'https://raw.githubusercontent.com/captainqwerty/PSLogWriter/main/icon.png'
     }
 }
-
 }

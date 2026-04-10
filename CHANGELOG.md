@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project will attempt to adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1] - 2026-04-10
+Minor fixes
+
+### Added / Changed
+ * Changed default date format to ISO 8601 (yyyy-MM-dd HH:mm:ss) for culture-independent log timestamps
+ * Updated ReleaseNotes URI in manifest to use correct lowercase filename
+ 
+### Fixed
+ * Removed Parameter description from meta data as this was from the template and was blank
+ * Put `$Message` in quotes for when logging to the event log for Linux
+
+
 ## [2.0.0] - 2026-04-10
 The revamp!
 
@@ -13,9 +25,7 @@ The revamp!
  * Added `[bool]$LogToConsole = $true` which can be set to $false for a more silent operation
  * Added ` | Out-Null` to the creation of the log file if it does not exist to make this less messy
  * Added `-Encoding UTF8` to the `Add-Content` when writing to the log file
- * Removed Parameter description from meta data as this was from the template and was blank
  
-  
 ### Fixed
  * [BREAKING CHANGE] `AddCustomEntry` property order changed for more clarity for the method with the colour overload
  * Corrected $logFIle to $logFile in the ValidateLogFile method parameter

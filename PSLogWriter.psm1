@@ -8,9 +8,6 @@
     are timestamped and severity-tagged. Logging to console and system logs can be 
     toggled independently via the LogToConsole and LogToSystem properties.
 
-.PARAMETER ParameterName
-    Description of parameter
-
 .EXAMPLE
     Import-Module PSLogWriter
     $Log = New-Log
@@ -40,7 +37,7 @@
     Creation Date     : 28/10/2024
     Last Updated By   : Antony Bragg
     Last Updated      : 10/04/2026
-    Script Version    : 2.0.0
+    Script Version    : 2.0.1
     Template Version  : 3.0.0
 
 .LINK
@@ -80,7 +77,6 @@ class Log {
             throw "Invalid log file extension. Please use .log or .txt"
         }
 
-        # Ensure directory exists
         $dir = Split-Path $LogLocation
         if ($dir -and !(Test-Path $dir)) {
             New-Item -ItemType Directory -Path $dir -Force | Out-Null
@@ -99,8 +95,7 @@ class Log {
         }
 
         if ($null -eq $this.DateFormat) {
-            $date = Get-Date
-            $timeStamp = $date.ToShortDateString() + " " + $date.ToLongTimeString()
+            $timeStamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
         }
         else {
             $timeStamp = Get-Date -Format $this.DateFormat
@@ -152,7 +147,7 @@ class Log {
                 }
 
                 try {
-                    & logger --priority "user.$priority" --tag "PSLogWriter" $Message
+                    & logger --priority "user.$priority" --tag "PSLogWriter" "$Message"
 
                     if ($LASTEXITCODE -ne 0) {
                         Write-Warning "logger exited with code $LASTEXITCODE for message: $Message"
