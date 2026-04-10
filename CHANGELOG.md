@@ -16,7 +16,6 @@ Minor fixes
  * Removed Parameter description from meta data as this was from the template and was blank
  * Put `$Message` in quotes for when logging to the event log for Linux
 
-
 ## [2.0.0] - 2026-04-10
 The revamp!
 
